@@ -10,7 +10,9 @@ app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Success! Server is running on port: ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`Success! Server is running on port: ${PORT}`)
+);
 
 mongoose.connect(
   process.env.DATABASE_CONNECTION_STRING,
@@ -18,7 +20,7 @@ mongoose.connect(
   (err) => {
     if (err) throw err;
     console.log('Connected to MongoDB database');
-  },
+  }
 );
 
 app.use('/users', require('./routes/user'));
