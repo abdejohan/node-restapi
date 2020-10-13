@@ -22,5 +22,4 @@ mongoose.connect(
     console.log('Connected to MongoDB database');
   }
 );
-
 app.use('/users', require('./routes/user'));

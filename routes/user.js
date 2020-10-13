@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const auth = require('../middleware/auth');
 
 // eslint-disable-next-line consistent-return
 router.post('/register', async (req, res) => {
@@ -75,6 +76,32 @@ router.post('/login', async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ msg: err.message });
+  }
+});
+
+router.delete('/delete', auth, async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.user);
+    res.json(deletedUser);
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+});
+
+router.post('/tokenIsValid', async (req, res) => {
+  try {
+    const token = req.header('x-auth-token');
+    if (!token) return res.json(false);
+
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if (!verified) return res.json(false);
+
+    const user = await User.findById(verified.id);
+    if (!user) return res.json(false);
+
+    return res.json(true);
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
   }
 });
 
