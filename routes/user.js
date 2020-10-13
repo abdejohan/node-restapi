@@ -105,4 +105,12 @@ router.post('/tokenIsValid', async (req, res) => {
   }
 });
 
+router.get('/', auth, async (req, res) => {
+  const user = await User.findById(req.user);
+  res.json({
+    userName: user.userName,
+    id: user._id,
+  });
+});
+
 module.exports = router;
