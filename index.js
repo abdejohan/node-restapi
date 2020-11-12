@@ -22,6 +22,6 @@ mongoose.connect(
     console.log('Connected to MongoDB database');
   }
 );
-app.use('/users', require('./routes/user'));
+app.use('/user', require('./routes/user'));
 app.use('/posts', require('./routes/post'));
 app.use('/search', require('./routes/search'));
