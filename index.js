@@ -24,3 +24,4 @@ mongoose.connect(
 );
 app.use('/users', require('./routes/user'));
 app.use('/posts', require('./routes/post'));
+app.use('/search', require('./routes/search'));
