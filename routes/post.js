@@ -53,4 +53,15 @@ router.delete('/:id', auth, async (req, res) => {
   res.json(deletedPost);
 });
 
+router.get('/:id', async (req, res) => {
+  const post = await Post.findOne({ _id: req.params.id });
+  if (!post) {
+    return res
+      .status(400)
+      .json({ msg: 'No post found with this id connected to current user' });
+  }
+  const fetchPost = await Post.findById(req.params.id);
+  res.json(fetchPost);
+});
+
 module.exports = router;
