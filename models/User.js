@@ -15,6 +15,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    required: true,
+  },
+  totaltPosts: {
+    type: Array,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model('user', userSchema);

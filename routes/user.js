@@ -13,9 +13,15 @@ router.post('/register', async (req, res) => {
       password,
       passwordCheck,
       userName,
+      role,
+      totaltPosts,
+      followerCount,
     } = req.body;
-    if (!password || !passwordCheck || !email) {
+    if (!password || !passwordCheck || !email || !userName || !role) {
       return res.status(400).json({ msg: 'Not all field have been entered.' });
+    }
+    if (!followerCount) {
+      followerCount = 0;
     }
     if (password.length < 5) {
       return res
@@ -43,6 +49,8 @@ router.post('/register', async (req, res) => {
       email,
       password: passwordHash,
       userName,
+      role,
+      totaltPosts,
     });
     const savedUser = await newUser.save();
     res.json(savedUser);
