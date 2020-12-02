@@ -7,6 +7,7 @@ router.post('/', auth, async (req, res) => {
   try {
     const { title, description, ingredients, instructions } = req.body;
     console.log(req.body);
+    console.log(auth);
     // validation
     if (!title) {
       return res

@@ -14,14 +14,10 @@ router.post('/register', async (req, res) => {
       passwordCheck,
       userName,
       role,
-      totaltPosts,
-      followerCount,
+      userPosts,
     } = req.body;
     if (!password || !passwordCheck || !email || !userName || !role) {
       return res.status(400).json({ msg: 'Not all field have been entered.' });
-    }
-    if (!followerCount) {
-      followerCount = 0;
     }
     if (password.length < 5) {
       return res
@@ -50,7 +46,7 @@ router.post('/register', async (req, res) => {
       password: passwordHash,
       userName,
       role,
-      totaltPosts,
+      userPosts,
     });
     const savedUser = await newUser.save();
     res.json(savedUser);
@@ -73,14 +69,27 @@ router.post('/login', async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ msg: 'Wrong password, Please try again' });
     }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-    res.json({
-      token,
-      user: {
-        id: user._id,
-        userName: user.userName,
-      },
-    });
+    if (user.role === 'admin') {
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_ADMIN);
+      res.json({
+        token,
+        user: {
+          id: user._id,
+          userName: user.userName,
+          role: user.role,
+        },
+      });
+    } else {
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      res.json({
+        token,
+        user: {
+          id: user._id,
+          userName: user.userName,
+          role: user.role,
+        },
+      });
+    }
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }
@@ -117,6 +126,7 @@ router.get('/', auth, async (req, res) => {
   res.json({
     userName: user.userName,
     id: user._id,
+    role: user.role,
   });
 });
 

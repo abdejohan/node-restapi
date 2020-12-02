@@ -25,3 +25,4 @@ mongoose.connect(
 app.use('/user', require('./routes/user'));
 app.use('/posts', require('./routes/post'));
 app.use('/search', require('./routes/search'));
+app.use('/admin', require('./routes/admin'));
