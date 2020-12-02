@@ -5,9 +5,13 @@ const Post = require('../models/Post');
 
 router.post('/', auth, async (req, res) => {
   try {
-    const { title, description, ingredients, instructions } = req.body;
-    console.log(req.body);
-    console.log(auth);
+    const {
+      title,
+      description,
+      ingredients,
+      instructions,
+      postOwner,
+    } = req.body;
     // validation
     if (!title) {
       return res
@@ -15,13 +19,13 @@ router.post('/', auth, async (req, res) => {
         .json({ msg: 'Post is missing title. title is required' });
     }
     if (!ingredients) {
-      return res
-        .status(400)
-        .json({ msg: 'Post is missing ingredients. ingredients is required.' });
+      return res.status(400).json({
+        msg: 'Post is missing ingredients. ingredients are required.',
+      });
     }
     if (!instructions) {
       return res.status(400).json({
-        msg: 'Post is missing instructions. instructions is required.',
+        msg: 'Post is missing instructions. instructions are required.',
       });
     }
     const newPost = new Post({
@@ -30,6 +34,7 @@ router.post('/', auth, async (req, res) => {
       ingredients,
       instructions,
       userId: req.user,
+      postOwner,
     });
     const savedPost = await newPost.save();
     res.json(savedPost);

@@ -20,6 +20,10 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  postOwner: {
+    type: String,
+    required: false,
+  },
 });
 
 // eslint-disable-next-line no-multi-assign
