@@ -3,7 +3,7 @@ const { json } = require('express');
 const auth = require('../middleware/auth');
 const Post = require('../models/Post');
 
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const {
       title,
@@ -11,6 +11,7 @@ router.post('/', auth, async (req, res) => {
       ingredients,
       instructions,
       postOwner,
+      expire,
     } = req.body;
     // validation
     if (!title) {
@@ -35,6 +36,7 @@ router.post('/', auth, async (req, res) => {
       instructions,
       userId: req.user,
       postOwner,
+      expire,
     });
     const savedPost = await newPost.save();
     res.json(savedPost);

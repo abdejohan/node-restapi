@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const postSchema = new mongoose.Schema({
   userId: {
     type: String,
-    required: true,
+    required: false,
   },
   title: {
     type: String,
@@ -13,7 +13,7 @@ const postSchema = new mongoose.Schema({
     type: String,
   },
   ingredients: {
-    type: String,
+    type: Array,
     required: true,
   },
   instructions: {
@@ -22,7 +22,10 @@ const postSchema = new mongoose.Schema({
   },
   postOwner: {
     type: String,
-    required: false,
+  },
+  expire: {
+    type: Boolean,
+    required: true,
   },
 });
 
