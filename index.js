@@ -1,7 +1,7 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 
@@ -19,10 +19,10 @@ mongoose.connect(
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
   (err) => {
     if (err) throw err;
-    console.log('Connected to MongoDB database');
+    console.log("Connected to MongoDB database");
   }
 );
-app.use('/user', require('./routes/user'));
-app.use('/posts', require('./routes/post'));
-app.use('/search', require('./routes/search'));
-app.use('/admin', require('./routes/admin'));
+app.use("/user", require("./routes/user"));
+app.use("/posts", require("./routes/post"));
+app.use("/search", require("./routes/search"));
+app.use("/admin", require("./routes/admin"));

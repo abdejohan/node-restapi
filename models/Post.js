@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema({
   userId: {
@@ -20,14 +20,7 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  postOwner: {
-    type: String,
-  },
-  expire: {
-    type: Boolean,
-    required: true,
-  },
 });
 
 // eslint-disable-next-line no-multi-assign
-module.exports = mongoose.model('post', postSchema);
+module.exports = mongoose.model("post", postSchema);
