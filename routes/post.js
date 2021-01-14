@@ -39,6 +39,8 @@ router.post("/", auth, async (req, res) => {
 
 router.get("/all", async (req, res) => {
   const { userId } = req.body;
+  console.log(userId);
+  console.log(req.body);
   const userPosts = await Post.find({ userId: userId });
   res.json(userPosts);
 });
