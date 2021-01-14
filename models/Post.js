@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-    required: false,
-  },
   title: {
     type: String,
     required: true,
@@ -19,6 +15,14 @@ const postSchema = new mongoose.Schema({
   instructions: {
     type: String,
     required: true,
+  },
+  userId: {
+    type: String,
+    required: false,
+  },
+  author: {
+    type: String,
+    required: false,
   },
 });
 

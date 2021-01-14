@@ -5,7 +5,7 @@ const Post = require("../models/Post");
 
 router.post("/", auth, async (req, res) => {
   try {
-    const { title, description, ingredients, instructions } = req.body;
+    const { title, description, ingredients, instructions, author } = req.body;
     // validation
     if (!title) {
       return res
@@ -27,6 +27,7 @@ router.post("/", auth, async (req, res) => {
       description,
       ingredients,
       instructions,
+      author,
       userId: req.user,
     });
     const savedPost = await newPost.save();
