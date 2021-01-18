@@ -37,6 +37,39 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
+router.post("/no-user", async (req, res) => {
+  try {
+    const { title, description, ingredients, instructions, author } = req.body;
+    // validation
+    if (!title) {
+      return res
+        .status(400)
+        .json({ msg: "Post is missing title. title is required" });
+    }
+    if (!ingredients) {
+      return res.status(400).json({
+        msg: "Post is missing ingredients. ingredients are required.",
+      });
+    }
+    if (!instructions) {
+      return res.status(400).json({
+        msg: "Post is missing instructions. instructions are required.",
+      });
+    }
+    const newPost = new Post({
+      title,
+      description,
+      ingredients,
+      instructions,
+      author,
+    });
+    const savedPost = await newPost.save();
+    res.json(savedPost);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+});
+
 router.get("/all", async (req, res) => {
   const userPosts = await Post.find({ userId: req.headers.userid });
   res.json(userPosts);
