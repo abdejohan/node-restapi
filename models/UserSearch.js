@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const UserSearchSchema = new mongoose.Schema(
   {
@@ -6,7 +6,7 @@ const UserSearchSchema = new mongoose.Schema(
     text: String,
     id: Number,
   },
-  { collection: 'users' }
+  { collection: "users" }
 );
 
-module.exports = mongoose.model('UserSearch', UserSearchSchema);
+module.exports = mongoose.model("UserSearch", UserSearchSchema);
