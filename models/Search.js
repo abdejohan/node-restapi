@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const SearchSchema = new mongoose.Schema(
   {
@@ -6,7 +6,7 @@ const SearchSchema = new mongoose.Schema(
     text: String,
     id: Number,
   },
-  { collection: 'posts' }
+  { collection: "posts" }
 );
 
-module.exports = mongoose.model('Search', SearchSchema);
+module.exports = mongoose.model("Search", SearchSchema);
