@@ -7,15 +7,7 @@ const auth = require("../middleware/auth");
 // eslint-disable-next-line consistent-return
 router.post("/register", async (req, res) => {
   try {
-    let {
-      // eslint-disable-next-line prefer-const
-      email,
-      password,
-      passwordCheck,
-      userName,
-      role,
-      userPosts,
-    } = req.body;
+    const { email, password, passwordCheck, userName, role } = req.body;
     if (!password || !passwordCheck || !email || !userName || !role) {
       return res.status(400).json({ msg: "Not all field have been entered." });
     }
@@ -46,7 +38,10 @@ router.post("/register", async (req, res) => {
       password: passwordHash,
       userName,
       role,
-      userPosts,
+      about: "Write something about yourself :)",
+      profession: "-",
+      totalRecipes: "0",
+      totaltFollowers: "0",
     });
     const savedUser = await newUser.save();
     res.json(savedUser);
@@ -73,21 +68,14 @@ router.post("/login", async (req, res) => {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_ADMIN);
       res.json({
         token,
-        user: {
-          id: user._id,
-          userName: user.userName,
-          role: user.role,
-        },
+        user,
       });
     } else {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      console.log(user);
       res.json({
         token,
-        user: {
-          id: user._id,
-          userName: user.userName,
-          role: user.role,
-        },
+        user,
       });
     }
   } catch (err) {
@@ -136,6 +124,24 @@ router.get("/:id", async (req, res) => {
     userName: user.userName,
     id: user._id,
   });
+});
+
+router.patch("/update", auth, async (req, res) => {
+  const user = req.user;
+  const updates = req.body;
+  const options = {
+    new: true,
+    useFindAndModify: false,
+  };
+  try {
+    if (!user) {
+      return res.status(400).json({ msg: "No user found with this id" });
+    }
+    const updateUser = await User.findByIdAndUpdate(user, updates, options);
+    res.json(updateUser);
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
 });
 
 module.exports = router;
