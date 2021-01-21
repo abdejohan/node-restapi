@@ -40,7 +40,7 @@ router.post("/register", async (req, res) => {
       role,
       about: "Write something about yourself :)",
       profession: "-",
-      totalRecipes: "0",
+      totalRecipes: "gg",
       totaltFollowers: "0",
     });
     const savedUser = await newUser.save();
@@ -115,6 +115,11 @@ router.get("/", auth, async (req, res) => {
     userName: user.userName,
     id: user._id,
     role: user.role,
+    about: user.about,
+    profession: user.profession,
+    totalRecipes: user.totalRecipes,
+    totaltFollowers: user.totaltFollowers,
+    createdAt: user.createdAt,
   });
 });
 
@@ -123,6 +128,11 @@ router.get("/:id", async (req, res) => {
   res.json({
     userName: user.userName,
     id: user._id,
+    about: user.about,
+    profession: user.profession,
+    totalRecipes: user.totalRecipes,
+    totaltFollowers: user.totaltFollowers,
+    createdAt: user.createdAt,
   });
 });
 
