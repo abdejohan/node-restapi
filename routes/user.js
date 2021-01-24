@@ -38,10 +38,10 @@ router.post("/register", async (req, res) => {
       password: passwordHash,
       userName,
       role,
-      about: "Write something about yourself :)",
+      about: "Nothing here yet :(",
       profession: "-",
-      totalRecipes: "gg",
-      totaltFollowers: "0",
+      totalRecipes: "0",
+      followers: "0",
     });
     const savedUser = await newUser.save();
     res.json(savedUser);

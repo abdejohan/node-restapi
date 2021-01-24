@@ -28,11 +28,11 @@ const userSchema = new mongoose.Schema(
       type: Array,
       required: false,
     },
-    totaltRecipes: {
+    totalRecipes: {
       type: String,
       required: false,
     },
-    totalFollowers: {
+    followers: {
       type: String,
       required: false,
     },
