@@ -22,6 +22,11 @@ mongoose.connect(
     console.log("Connected to MongoDB database");
   }
 );
+
+app.get("/:id", async (req, res) => {
+  res.json("worked");
+});
+
 app.use("/user", require("./routes/user"));
 app.use("/posts", require("./routes/post"));
 app.use("/search", require("./routes/search"));
